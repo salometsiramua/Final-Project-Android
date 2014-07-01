@@ -22,7 +22,6 @@ public class DashedView extends View{
 	protected void onDraw(Canvas canvas) {
 
 		dashes(canvas);
-		//super.onDraw(canvas);
 	}
 	
 	
@@ -32,7 +31,6 @@ public class DashedView extends View{
 		paint.setARGB(255, 255, 255, 255);
 		paint.setStyle(Style.FILL_AND_STROKE);
 		paint.setStrokeWidth(150);
-//		paint.set
 		paint.setPathEffect(new DashPathEffect(new float[] {200,500}, 0));
 		canvas.drawPaint(paint);
 		
