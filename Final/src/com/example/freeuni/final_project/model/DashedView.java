@@ -20,7 +20,6 @@ public class DashedView extends View{
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-
 		dashes(canvas);
 	}
 	
