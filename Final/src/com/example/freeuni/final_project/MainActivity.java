@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	protected void speedUp() {
 		state.setVelocity(state.getVelocity() + 1);
 		
-		state.setyCoord(state.getyCoord() + 5);
+		state.setyCoord(state.getyCoord() + 1);
 		
 		
 //		car.set
@@ -101,10 +101,7 @@ public class MainActivity extends Activity implements SpeedUpListener {
 
 	@Override
 	public void speedUpListner() {
-		
+		speedUp();
 	}
-
-	
-	
 	
 }
