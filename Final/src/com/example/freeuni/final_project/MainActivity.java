@@ -1,5 +1,8 @@
 package com.example.freeuni.final_project;
 
+import com.example.freeuni.final_project.listeners.SpeedUpListener;
+import com.example.freeuni.final_project.model.State;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SpeedUpListener {
 
 	private RelativeLayout layout;
 	private View rightLine;
@@ -22,12 +25,14 @@ public class MainActivity extends Activity {
 	
 	private ImageView car;
 	
+	private State state;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        
+        state = new State(0, 0);
     }
 
 	@Override
@@ -62,6 +67,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				System.out.println("daechira left");
+				speedUp();
 				left_wheel.setEnabled(false);
 				right_wheel.setEnabled(true);
 			}
@@ -74,11 +80,28 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				System.out.println("daechira right");
+				speedUp();
 				left_wheel.setEnabled(true);
 				right_wheel.setEnabled(false);
 			}
 		});
 
+	}
+
+	protected void speedUp() {
+		state.setVelocity(state.getVelocity() + 1);
+		
+		state.setyCoord(state.getyCoord() + 5);
+		
+		
+//		car.set
+		System.out.println("v: " + state.getVelocity()  + " coord: " 
+							+ state.getyCoord());
+	}
+
+	@Override
+	public void speedUpListner() {
+		
 	}
 
 	

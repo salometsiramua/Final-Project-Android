@@ -2,8 +2,8 @@ package com.example.freeuni.final_project.model;
 
 public class State {
 	
-	private double velocity;
-	private double yCoord;
+	private double velocity = 0;
+	private double yCoord = 0;
 	
 	
 	public State(double velocity,double yCoord){
