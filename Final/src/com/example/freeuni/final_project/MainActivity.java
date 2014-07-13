@@ -1,18 +1,7 @@
 package com.example.freeuni.final_project;
 
-<<<<<<< HEAD
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
 import com.example.freeuni.final_project.model.State;
-=======
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
->>>>>>> 0ef2fa1f391c3bf51f59d93b909f6e122ecbbda4
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -35,48 +24,16 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	private Button right_wheel;
 	
 	private ImageView car;
-	 Socket kkSocket;
 	
 	private State state;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Thread t  = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				startConnection();
-				
-			}
-		});
-        t.start();
-   
         setContentView(R.layout.activity_main);
         initView();
         state = new State(0, 0);
     }
-    // es aq ar unda ityos prosta satestod chavagde
-	
-	protected void startConnection() {
-		String hostName = "192.168.1.101";
-	       int portNumber = 8090;
-
-	        try {
-	           kkSocket = new Socket(hostName, portNumber);
-	       
-       
-	        } catch (UnknownHostException e) {
-	            System.err.println("Don't know about host " + hostName);
-	            System.exit(1);
-	        } catch (IOException e) {
-	            System.err.println("Couldn't get I/O for the connection to " +
-	                hostName);
-	            System.exit(1);
-	        }
-		
-		
-	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,22 +79,6 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			
 			@Override
 			public void onClick(View v) {
-				
-				    PrintWriter out = null;
-					try {
-						if(kkSocket!=null){
-							System.out.println("AAAAA");
-							out = new PrintWriter(kkSocket.getOutputStream(), true);
-						}else{
-							System.out.println("null");
-						}
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					System.out.println(out==null);	
-						            out.println("right");
-
 				System.out.println("daechira right");
 				speedUp();
 				left_wheel.setEnabled(true);
