@@ -26,6 +26,7 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	private ImageView car;
 	
 	private State state;
+	private SpeedUpListener listener= null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity extends Activity implements SpeedUpListener {
         setContentView(R.layout.activity_main);
         initView();
         state = new State(0, 0);
+        listener  = (SpeedUpListener) getApplication();
     }
 
 	@Override
@@ -89,12 +91,13 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	}
 
 	protected void speedUp() {
+		listener.speedUpListner();
 		state.setVelocity(state.getVelocity() + 1);
 		
 		state.setyCoord(state.getyCoord() + 1);
 		
 		
-//		car.set
+
 		System.out.println("v: " + state.getVelocity()  + " coord: " 
 							+ state.getyCoord());
 	}
