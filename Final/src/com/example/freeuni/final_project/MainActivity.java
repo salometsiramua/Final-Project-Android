@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	private State state;
 	private SpeedUpListener listener= null;
 	
+	float movement = 10;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class MainActivity extends Activity implements SpeedUpListener {
 		
 		int height = size.y;
 		params.topMargin = 0 - height;
+		params.bottomMargin = 0;
 		params.height = height*2;
 		line.setLayoutParams(params);
 	}
@@ -135,29 +137,24 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	
 	private void moveCar(){
 		
-		state.setVelocity(state.getVelocity() + 1);
+		//state.setVelocity(state.getVelocity() + 1);
 		
-		state.setyCoord(state.getyCoord() + 50);
+		state.setyCoord(state.getyCoord() + movement);
 		
-//		line.
 		
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
-		//display.getSize(size);
-		params.topMargin += state.getyCoord();
+		params.topMargin += movement;
+		params.bottomMargin -= movement;
 		if(params.topMargin >= 0){
 			
 			display.getSize(size);
 			
 			int height = size.y;
 			params.topMargin = 0 - height;
-			params.height = height*2;
 		}
-		//int margin = 
-		//int height = size.y;
-		//params.topMargin = (int) (0 - height + state.getyCoord());
-		//params.height = height*2;
+		
 		line.setLayoutParams(params);
 		
 	}

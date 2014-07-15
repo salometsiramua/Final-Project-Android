@@ -11,8 +11,8 @@ import android.app.Application;
 
 public class App extends Application implements SpeedUpListener{
 	private Socket socket;
-	public static final String HOST_NAME = "192.168.1.101";
-    public static final int PORT_NUMBER = 8090;
+	public static final String HOST_NAME = "192.168.1.111";
+    public static final int PORT_NUMBER = 8095;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
