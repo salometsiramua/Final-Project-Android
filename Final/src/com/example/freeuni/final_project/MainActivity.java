@@ -1,11 +1,14 @@
 package com.example.freeuni.final_project;
 
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
+import com.example.freeuni.final_project.model.DashedView;
 import com.example.freeuni.final_project.model.State;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +21,8 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	private RelativeLayout layout;
 	private View rightLine;
 	private View leftLine;
+	
+	private DashedView line;
 	private RelativeLayout panel;
 	
 	private Button left_wheel;
@@ -56,8 +61,22 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	        leftLine.setBackgroundColor(Color.WHITE);
 	     
 	        car = (ImageView) findViewById(R.id.my_car);
+	        line = (DashedView) findViewById(R.id.line);
+	        initLine();
 	        initPanel();
 	 }
+
+	private void initLine() {
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		
+		int height = size.y;
+		params.topMargin = 0 - height;
+		params.height = height*2;
+		line.setLayoutParams(params);
+	}
 
 	private void initPanel() {
 		panel = (RelativeLayout) findViewById(R.id.steering_wheel);
@@ -91,15 +110,22 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	}
 
 	protected void speedUp() {
+		
 		listener.speedUpListner();
-		state.setVelocity(state.getVelocity() + 1);
-		
-		state.setyCoord(state.getyCoord() + 1);
-		
-		
 
 		System.out.println("v: " + state.getVelocity()  + " coord: " 
 							+ state.getyCoord());
+		
+//		while(true){
+//			try {
+//				Thread.sleep(10);
+				moveCar();
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+		//}
 	}
 
 	@Override
@@ -107,4 +133,32 @@ public class MainActivity extends Activity implements SpeedUpListener {
 		speedUp();
 	}
 	
+	private void moveCar(){
+		
+		state.setVelocity(state.getVelocity() + 1);
+		
+		state.setyCoord(state.getyCoord() + 50);
+		
+//		line.
+		
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		//display.getSize(size);
+		params.topMargin += state.getyCoord();
+		if(params.topMargin >= 0){
+			
+			display.getSize(size);
+			
+			int height = size.y;
+			params.topMargin = 0 - height;
+			params.height = height*2;
+		}
+		//int margin = 
+		//int height = size.y;
+		//params.topMargin = (int) (0 - height + state.getyCoord());
+		//params.height = height*2;
+		line.setLayoutParams(params);
+		
+	}
 }

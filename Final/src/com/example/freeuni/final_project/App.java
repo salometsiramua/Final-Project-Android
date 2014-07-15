@@ -50,13 +50,14 @@ public class App extends Application implements SpeedUpListener{
 			if(socket!=null){
 				
 				out = new PrintWriter(socket.getOutputStream(), true);
+				out.println("speadup");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
-		out.println("speadup");
+		
 		
 	}
 }
