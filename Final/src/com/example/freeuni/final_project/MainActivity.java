@@ -1,13 +1,19 @@
 package com.example.freeuni.final_project;
 
+import java.util.Timer;
+
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
 import com.example.freeuni.final_project.model.DashedView;
 import com.example.freeuni.final_project.model.State;
 
 import android.app.Activity;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.text.format.Time;
 import android.view.Display;
 import android.view.Menu;
 import android.view.View;
@@ -33,7 +39,13 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	private State state;
 	private SpeedUpListener listener= null;
 	
-	float movement = 10;
+	private boolean firstClick = true;
+	
+	private double movement = 100;
+	
+	private boolean leftClick = true;
+	private boolean rightClick = true;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,10 +101,20 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			
 			@Override
 			public void onClick(View v) {
-				System.out.println("daechira left");
-				speedUp();
-				left_wheel.setEnabled(false);
-				right_wheel.setEnabled(true);
+				
+				if(leftClick == true){
+					speedUp();
+				
+					leftClick = false;
+					rightClick = true;;
+					
+					
+					if(firstClick){
+						movement = 100;
+						continueMoving();
+						firstClick = false;
+					}
+				}
 			}
 		});
         
@@ -102,10 +124,20 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			
 			@Override
 			public void onClick(View v) {
-				System.out.println("daechira right");
-				speedUp();
-				left_wheel.setEnabled(true);
-				right_wheel.setEnabled(false);
+				
+				if(rightClick == true){
+					speedUp();
+				
+					leftClick = true;
+					rightClick = false;
+					
+					
+					if(firstClick){
+						movement = 100;
+						continueMoving();
+						firstClick = false;
+					}
+				}
 			}
 		});
 
@@ -115,38 +147,64 @@ public class MainActivity extends Activity implements SpeedUpListener {
 		
 		listener.speedUpListner();
 
-		System.out.println("v: " + state.getVelocity()  + " coord: " 
-							+ state.getyCoord());
 		
-//		while(true){
-//			try {
-//				Thread.sleep(10);
-				moveCar();
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-		//}
 	}
 
+	private int res = 0;
+	private void continueMoving(){
+	
+		
+		final Handler handler = new Handler();
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true){
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					handler.post(new Runnable() {
+						
+						@Override
+						public void run() {
+							res = moveCar();
+							
+						}
+					});
+					if(res == -1){
+						firstClick = true;
+						
+						break;
+					}
+				}
+			}
+		}).start();
+	}
+	
 	@Override
 	public void speedUpListner() {
 		speedUp();
 	}
 	
-	private void moveCar(){
+	private double getMovement(){
+		movement -= 1;
+		return movement;
+	}
+	private int moveCar(){
 		
-		//state.setVelocity(state.getVelocity() + 1);
-		
-		state.setyCoord(state.getyCoord() + movement);
+		double currMovement = getMovement();
+		if(currMovement <= 0) return -1;
+		state.setyCoord(state.getyCoord() + currMovement);
 		
 		
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
-		params.topMargin += movement;
-		params.bottomMargin -= movement;
+		params.topMargin += currMovement;
+		params.bottomMargin -= currMovement;
 		if(params.topMargin >= 0){
 			
 			display.getSize(size);
@@ -156,6 +214,9 @@ public class MainActivity extends Activity implements SpeedUpListener {
 		}
 		
 		line.setLayoutParams(params);
+		return 1;
 		
 	}
+	
+	
 }

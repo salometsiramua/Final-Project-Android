@@ -43,6 +43,7 @@
         android:layout_centerHorizontal="true"
         />
     
+ 
     <RelativeLayout 
         android:id="@+id/steering_wheel"
         android:layout_width="fill_parent"
