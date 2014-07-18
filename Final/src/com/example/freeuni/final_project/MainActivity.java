@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 public class MainActivity extends Activity {
 
 	private static final int SLEEP_INTERVAL = 33;
+	private static final int DECREASE_INTERVAL = 1000;
 	private RelativeLayout layout;
 	private View rightLine;
 	private View leftLine;
@@ -53,6 +54,8 @@ public class MainActivity extends Activity {
 	private boolean rightClick = true;
 	
 	private StateManager stateManager;
+	
+	private CarPhysics carPhysics = new CarPhysics();
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,17 +135,8 @@ public class MainActivity extends Activity {
 				
 					leftClick = false;
 					rightClick = true;;
-					long now  = new Date().getTime();
-					stateManager.setAccTimeOutPoint(now + 400);
 					
-					if(firstClick){
-					//	movement = 100;
-						continueMoving();
-						firstClick = false;
-					}
-//					}else{
-//						speedUp();
-//					}
+					changeMovement();
 				}
 			}
 		});
@@ -155,38 +149,62 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				
 				if(rightClick == true){
-					
+				
 					leftClick = true;
 					rightClick = false;
-					long now  =new Date().getTime();
-					stateManager.setAccTimeOutPoint(now + 400);
 					
-					if(firstClick){
-					//	movement = 100;
-						continueMoving();
-						firstClick = false;
-					}
-//					}else{
-//						speedUp();
-//					}
+					changeMovement();
 				}
 			}
 		});
 
 	}
+	
+	
+	private void changeMovement(){
+		carPhysics.increaseVelocity();
+		
+		if(firstClick){
+			
+			continueMoving();
+			decreaseVelocityThread();
+			firstClick = false;
+		}
+	}
+	
+
+	protected void decreaseVelocityThread() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true){
+					try {
+						Thread.sleep(DECREASE_INTERVAL);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					carPhysics.changeVelocityY(-50);
+					if(!carPhysics.isMoving()){
+						firstClick = true;
+						carPhysics.setLastClickTimeZero();
+						break;
+					}
+					
+				}
+			}
+		}).start();
+	}
+	
 
 	protected void speedUp() {
 		
 		listener.speedUpListner();
-	//	changeMovement(10);
-//		movement += 100;
-		
+
 	}
 	
-	private synchronized void changeMovement(int change){
-	//	movement += change;
-	}
-
+	
 	private int res = 0;
 	private void continueMoving(){
 	
@@ -209,13 +227,12 @@ public class MainActivity extends Activity {
 						
 						@Override
 						public void run() {
-							res = moveCar();
-							System.out.println("res " + res);
+							moveCar();
 						}
 					});
-					if(res == -1){
+					if(!carPhysics.isMoving()){
 						firstClick = true;
-						
+						carPhysics.setLastClickTimeZero();
 						break;
 					}
 				}
@@ -223,53 +240,15 @@ public class MainActivity extends Activity {
 		}).start();
 	}
 	
+
 	
 	
-//	private double getMovement(){
-//		changeMovement(-10);
-//		return movement;
-//	}
 	
-	
-	private CarPhysics carPhysics = new CarPhysics();
-	private int moveCar(){
-//		long now  = new Date().getTime();
-//		if(now > stateManager.getAccTimeOutPoint()){
-//			stateManager.setAcceleration(stateManager.getAcceleration() - 1);
-//		}else{
-//			double diff = stateManager.getAccTimeOutPoint() - now;
-//			double change = stateManager.getAcceleration() + 10*((400-diff)/400);
-//			//double change = 20;
-//			if(change >= 20) change = 20;
-//			stateManager.setAcceleration(change);
-	//	}
-		
-		
-//		long dt;
-//		long prev = stateManager.getPreviousCallTime();
-//		if(prev == 0) dt = 33;
-//		else dt =  new Date().getTime() - prev;
-		
-		//dt = dt/1000;
-		//double dtdouble = dt/1000;
-		
-		//System.out.println(dtdouble);
-	//	System.out.println("dt " + dt + "  acc "+ stateManager.getAcceleration());
-		
-		
-//		double currMovement = dt*state.getVelocity() + dt*dt*stateManager.getAcceleration()/2;
-		
+	private void moveCar(){
+
 		double currMovement = carPhysics.CalculateYPosition() ;
 	
 	
-		//double currMovement = dt*state.getVelocity()/1000 + dt*dt*stateManager.getAcceleration()/1000000;
-		
-		//currMovement = 100;
-	//	System.out.println(state.getVelocity());
-		System.out.println("movement " + currMovement);
-		
-		//if(currMovement <= 0) return -1;
-		state.setyCoord(state.getyCoord() + currMovement);
 		
 		
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
@@ -284,10 +263,9 @@ public class MainActivity extends Activity {
 			int height = size.y;
 			params.topMargin = 0 - height;
 		}
-		stateManager.setPreviousCallTime(new Date().getTime());
+		//stateManager.setPreviousCallTime(new Date().getTime());
 		line.setLayoutParams(params);
 
-		return 1;
 	}
 	
 	
