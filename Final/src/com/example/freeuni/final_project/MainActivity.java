@@ -1,12 +1,16 @@
 package com.example.freeuni.final_project;
 
+import java.util.Date;
 import java.util.Timer;
 
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
+import com.example.freeuni.final_project.model.CarPhysics;
 import com.example.freeuni.final_project.model.DashedView;
 import com.example.freeuni.final_project.model.State;
+import com.example.freeuni.final_project.model.StateManager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -16,14 +20,16 @@ import android.os.SystemClock;
 import android.text.format.Time;
 import android.view.Display;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends Activity implements SpeedUpListener {
+public class MainActivity extends Activity {
 
+	private static final int SLEEP_INTERVAL = 33;
 	private RelativeLayout layout;
 	private View rightLine;
 	private View leftLine;
@@ -41,18 +47,37 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	
 	private boolean firstClick = true;
 	
-	private double movement = 100;
+	//private double movement = 100;
 	
 	private boolean leftClick = true;
 	private boolean rightClick = true;
+	
+	private StateManager stateManager;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        state = new State(0, 0);
+        state = new State(10, 0);
+        stateManager = new StateManager();
         listener  = (SpeedUpListener) getApplication();
+        Button chooseYourCar = new Button(this);
+        chooseYourCar.setText("choose your car");
+        chooseYourCar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent in = new Intent(getBaseContext(), ChooseYourCarActivity.class);
+				
+				
+				//in.putExtra("Name", clickedCategory.getCategoryName());
+				//App.transactionApater.setCategory(clickedCategory.getCategoryName());
+				//App.transactionApater.refresh();
+				startActivity(in);
+			}
+		});
+        layout.addView(chooseYourCar);
     }
 
 	@Override
@@ -103,17 +128,21 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			public void onClick(View v) {
 				
 				if(leftClick == true){
-					speedUp();
+					
 				
 					leftClick = false;
 					rightClick = true;;
-					
+					long now  = new Date().getTime();
+					stateManager.setAccTimeOutPoint(now + 400);
 					
 					if(firstClick){
-						movement = 100;
+					//	movement = 100;
 						continueMoving();
 						firstClick = false;
 					}
+//					}else{
+//						speedUp();
+//					}
 				}
 			}
 		});
@@ -126,17 +155,20 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			public void onClick(View v) {
 				
 				if(rightClick == true){
-					speedUp();
-				
+					
 					leftClick = true;
 					rightClick = false;
-					
+					long now  =new Date().getTime();
+					stateManager.setAccTimeOutPoint(now + 400);
 					
 					if(firstClick){
-						movement = 100;
+					//	movement = 100;
 						continueMoving();
 						firstClick = false;
 					}
+//					}else{
+//						speedUp();
+//					}
 				}
 			}
 		});
@@ -146,8 +178,13 @@ public class MainActivity extends Activity implements SpeedUpListener {
 	protected void speedUp() {
 		
 		listener.speedUpListner();
-
+	//	changeMovement(10);
+//		movement += 100;
 		
+	}
+	
+	private synchronized void changeMovement(int change){
+	//	movement += change;
 	}
 
 	private int res = 0;
@@ -162,16 +199,18 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			public void run() {
 				while(true){
 					try {
-						Thread.sleep(10);
+						Thread.sleep(SLEEP_INTERVAL);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					
+					
 					handler.post(new Runnable() {
 						
 						@Override
 						public void run() {
 							res = moveCar();
-							
+							System.out.println("res " + res);
 						}
 					});
 					if(res == -1){
@@ -184,19 +223,52 @@ public class MainActivity extends Activity implements SpeedUpListener {
 		}).start();
 	}
 	
-	@Override
-	public void speedUpListner() {
-		speedUp();
-	}
 	
-	private double getMovement(){
-		movement -= 1;
-		return movement;
-	}
+	
+//	private double getMovement(){
+//		changeMovement(-10);
+//		return movement;
+//	}
+	
+	
+	private CarPhysics carPhysics = new CarPhysics();
 	private int moveCar(){
+//		long now  = new Date().getTime();
+//		if(now > stateManager.getAccTimeOutPoint()){
+//			stateManager.setAcceleration(stateManager.getAcceleration() - 1);
+//		}else{
+//			double diff = stateManager.getAccTimeOutPoint() - now;
+//			double change = stateManager.getAcceleration() + 10*((400-diff)/400);
+//			//double change = 20;
+//			if(change >= 20) change = 20;
+//			stateManager.setAcceleration(change);
+	//	}
 		
-		double currMovement = getMovement();
-		if(currMovement <= 0) return -1;
+		
+//		long dt;
+//		long prev = stateManager.getPreviousCallTime();
+//		if(prev == 0) dt = 33;
+//		else dt =  new Date().getTime() - prev;
+		
+		//dt = dt/1000;
+		//double dtdouble = dt/1000;
+		
+		//System.out.println(dtdouble);
+	//	System.out.println("dt " + dt + "  acc "+ stateManager.getAcceleration());
+		
+		
+//		double currMovement = dt*state.getVelocity() + dt*dt*stateManager.getAcceleration()/2;
+		
+		double currMovement = carPhysics.CalculateYPosition() ;
+	
+	
+		//double currMovement = dt*state.getVelocity()/1000 + dt*dt*stateManager.getAcceleration()/1000000;
+		
+		//currMovement = 100;
+	//	System.out.println(state.getVelocity());
+		System.out.println("movement " + currMovement);
+		
+		//if(currMovement <= 0) return -1;
 		state.setyCoord(state.getyCoord() + currMovement);
 		
 		
@@ -212,10 +284,10 @@ public class MainActivity extends Activity implements SpeedUpListener {
 			int height = size.y;
 			params.topMargin = 0 - height;
 		}
-		
+		stateManager.setPreviousCallTime(new Date().getTime());
 		line.setLayoutParams(params);
+
 		return 1;
-		
 	}
 	
 	

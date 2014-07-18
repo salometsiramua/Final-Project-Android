@@ -30,7 +30,8 @@ public final class R {
         public static final int yellow_car=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080008;
+        public static final int action_settings=0x7f080009;
+        public static final int choose_scroll=0x7f080008;
         public static final int leftLine=0x7f080001;
         public static final int left_wheel=0x7f080006;
         public static final int line=0x7f080004;
