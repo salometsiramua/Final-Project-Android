@@ -12,8 +12,8 @@ public class StateManager {
 	public StateManager(){
 		Date d  = new Date();
 		TimeInMiliSeconds = d.getTime();
-		accTimeOutPoint  =0;
-		myState = new State(0,0);
+		accTimeOutPoint  = 0;
+		myState = new State (0,0);
 		acceleration = 10;
 		
 		

@@ -32,6 +32,20 @@
         android:contentDescription="@drawable/yellow_car"
         />
    
+    <ImageView
+        android:id="@+id/their_car"
+         
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:src="@drawable/red_car"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="300dp"
+        android:layout_marginLeft="80dp"
+        android:contentDescription="@drawable/red_car"
+        />
+        
+   
     	
     <com.example.freeuni.final_project.model.DashedView
         xmlns:android="http://schemas.android.com/apk/res/android"

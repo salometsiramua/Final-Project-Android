@@ -11,7 +11,7 @@ public class CarPhysics {
 	
 	private float positionYchange = 0;
 	private float positionY = 0;
-	private float velocityY = 100;
+	private float velocityY = 0;
 	//private float accelerationY = 10;
 
 	private long lastClickTime = 0;
@@ -32,11 +32,15 @@ public class CarPhysics {
 	private float dt = 0.0F;
 	private long previousCallTimeStamp = 0;
 
-	public  float CalculateYPosition()
+	public  float CalculateYPositionChange()
 	{
 		long now  = new Date().getTime();
 		
-		this.dt = ((now - this.previousCallTimeStamp ) / 1000.0F);
+		if(previousCallTimeStamp == 0){
+			this.dt = ((now - (now - 33.0F) ) / 1000.0F);
+		}else 
+		
+			this.dt = ((now - this.previousCallTimeStamp ) / 1000.0F);
 		
 		
 		
@@ -57,7 +61,7 @@ public class CarPhysics {
 			long diff = lastClickTime - now;
 			if(diff<0){
 				System.out.println("Awdsf");
-				lastClickTime = now+CLICK_INTERVAL;
+				lastClickTime = now + CLICK_INTERVAL;
 				return;
 			}
 			float velocityChange = velocityY * (CLICK_INTERVAL - diff)/CLICK_INTERVAL;

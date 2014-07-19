@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 public class MainActivity extends Activity {
 
@@ -41,7 +42,8 @@ public class MainActivity extends Activity {
 	private Button left_wheel;
 	private Button right_wheel;
 	
-	private ImageView car;
+	private ImageView myCar;
+	private ImageView theirCar;
 	
 	private State state;
 	private SpeedUpListener listener= null;
@@ -55,7 +57,8 @@ public class MainActivity extends Activity {
 	
 	private StateManager stateManager;
 	
-	private CarPhysics carPhysics = new CarPhysics();
+	private CarPhysics myCarPhysics = new CarPhysics();
+	private CarPhysics theirCarPhysics;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,22 +68,9 @@ public class MainActivity extends Activity {
         state = new State(10, 0);
         stateManager = new StateManager();
         listener  = (SpeedUpListener) getApplication();
-        Button chooseYourCar = new Button(this);
-        chooseYourCar.setText("choose your car");
-        chooseYourCar.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent in = new Intent(getBaseContext(), ChooseYourCarActivity.class);
-				
-				
-				//in.putExtra("Name", clickedCategory.getCategoryName());
-				//App.transactionApater.setCategory(clickedCategory.getCategoryName());
-				//App.transactionApater.refresh();
-				startActivity(in);
-			}
-		});
-        layout.addView(chooseYourCar);
+        theirCarPhysics =  new CarPhysics();
+        theirCarPhysics.changeVelocityY(200);
+        
     }
 
 	@Override
@@ -101,10 +91,22 @@ public class MainActivity extends Activity {
 	        rightLine.setBackgroundColor(Color.WHITE);
 	        leftLine.setBackgroundColor(Color.WHITE);
 	     
-	        car = (ImageView) findViewById(R.id.my_car);
+	        myCar = (ImageView) findViewById(R.id.my_car);
+	        theirCar = (ImageView)findViewById(R.id.their_car);
 	        line = (DashedView) findViewById(R.id.line);
 	        initLine();
 	        initPanel();
+	        
+	        Button chooseYourCar = new Button(this);
+	        chooseYourCar.setText("choose your car");
+	        chooseYourCar.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					startActivity(new Intent(getBaseContext(), ChooseYourCarActivity.class));
+				}
+			});
+	        layout.addView(chooseYourCar);
 	 }
 
 	private void initLine() {
@@ -116,7 +118,8 @@ public class MainActivity extends Activity {
 		int height = size.y;
 		params.topMargin = 0 - height;
 		params.bottomMargin = 0;
-		params.height = height*2;
+//		params.bottomMargin = -2147483648;
+		params.height = height * 2;
 		line.setLayoutParams(params);
 	}
 
@@ -162,7 +165,7 @@ public class MainActivity extends Activity {
 	
 	
 	private void changeMovement(){
-		carPhysics.increaseVelocity();
+		myCarPhysics.increaseVelocity();
 		
 		if(firstClick){
 			
@@ -185,10 +188,12 @@ public class MainActivity extends Activity {
 						e.printStackTrace();
 					}
 					
-					carPhysics.changeVelocityY(-50);
-					if(!carPhysics.isMoving()){
+					
+					if(myCarPhysics.isMoving()){
+						myCarPhysics.changeVelocityY(-50);
+					}else{
 						firstClick = true;
-						carPhysics.setLastClickTimeZero();
+						myCarPhysics.setLastClickTimeZero();
 						break;
 					}
 					
@@ -205,7 +210,6 @@ public class MainActivity extends Activity {
 	}
 	
 	
-	private int res = 0;
 	private void continueMoving(){
 	
 		
@@ -230,9 +234,9 @@ public class MainActivity extends Activity {
 							moveCar();
 						}
 					});
-					if(!carPhysics.isMoving()){
+					if(!myCarPhysics.isMoving()){
 						firstClick = true;
-						carPhysics.setLastClickTimeZero();
+						myCarPhysics.setLastClickTimeZero();
 						break;
 					}
 				}
@@ -242,28 +246,34 @@ public class MainActivity extends Activity {
 	
 
 	
-	
-	
 	private void moveCar(){
 
-		double currMovement = carPhysics.CalculateYPosition() ;
+		double currMovement = myCarPhysics.CalculateYPositionChange() ;
 	
-	
-		
-		
+		double theirMovement = theirCarPhysics.CalculateYPositionChange();
+		System.out.println("their movement: " + theirMovement);
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
-		params.topMargin += currMovement;
-		params.bottomMargin -= currMovement;
+		params.setMargins(params.leftMargin, (params.topMargin + (int)(currMovement)), params.rightMargin, (params.bottomMargin - (int)(currMovement)));
+	    
+//		params.topMargin += currMovement;
+//		params.bottomMargin -= currMovement;
+		
+		LayoutParams layoutParams = (LayoutParams) theirCar.getLayoutParams();
+	    layoutParams.setMargins(layoutParams.leftMargin, (layoutParams.topMargin + (int)(currMovement-theirMovement)), layoutParams.rightMargin, (layoutParams.bottomMargin - (int)(currMovement - theirMovement)));
+	    
+	    theirCar.setLayoutParams(layoutParams);
+	    
 		if(params.topMargin >= 0){
 			
 			display.getSize(size);
 			
 			int height = size.y;
 			params.topMargin = 0 - height;
+			params.bottomMargin = 0;
 		}
-		//stateManager.setPreviousCallTime(new Date().getTime());
+		
 		line.setLayoutParams(params);
 
 	}
