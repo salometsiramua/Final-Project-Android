@@ -6,6 +6,7 @@ import java.util.Timer;
 import javax.xml.soap.Text;
 
 import com.example.freeuni.final_project.R;
+import com.example.freeuni.final_project.activities.RestartGameDialog.RestartGameListener;
 import com.example.freeuni.final_project.listeners.SpeedChangeListener;
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
 import com.example.freeuni.final_project.model.CarPhysics;
@@ -20,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.format.Time;
@@ -33,8 +35,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity implements SpeedChangeListener{
+public class MainActivity extends Activity implements SpeedChangeListener, RestartGameListener{
 
 	private static final int SLEEP_INTERVAL = 33;
 	private static final int DECREASE_INTERVAL = 1000;
@@ -80,6 +83,16 @@ public class MainActivity extends Activity implements SpeedChangeListener{
         theirCarPhysics =  new CarPhysics();
         theirCarPhysics.changeVelocityY(200);
         
+        Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Go!", Toast.LENGTH_SHORT).show();
+        try {
+			Thread.sleep(3500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	@Override
@@ -172,13 +185,13 @@ public class MainActivity extends Activity implements SpeedChangeListener{
 			@Override
 			public void onClick(View v) {
 				
-				//if(rightClick == true){
+				if(rightClick == true){
 				
 					leftClick = true;
 					rightClick = false;
 					
 					changeMovement();
-				//}
+				}
 			}
 		});
 
@@ -307,6 +320,49 @@ public class MainActivity extends Activity implements SpeedChangeListener{
 			}
 		});
 		
+	}
+
+	@Override
+	public void finishLineCrossed() {
+		Toast.makeText(getApplicationContext(), "Congratulations! You won! :)", Toast.LENGTH_LONG).show();
+//		
+
+		leftClick = false;
+		rightClick = false;
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				startActivity(new Intent(getBaseContext(), StartGameActivity.class));
+				RestartGameDialog dialog = new RestartGameDialog();
+				
+				dialog.listener = (RestartGameListener)MainActivity.this;
+				
+				dialog.show(getFragmentManager(), "");
+
+			}
+		});
+		
+		
+	}
+
+	@Override
+	public void setOnAnswerListener(String answer) {
+		if(answer.equals("Exit")){
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		}else{
+			startActivity(new Intent(getBaseContext(), StartGameActivity.class));
+		}
 	}
 	
 	

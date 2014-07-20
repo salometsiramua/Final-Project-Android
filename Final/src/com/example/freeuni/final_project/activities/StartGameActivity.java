@@ -34,7 +34,7 @@ public class StartGameActivity extends Activity{
 			@Override
 			public void onClick(View arg0) {
 				//speedUpListener.onWaitForFriend();
-				startActivity(new Intent(getBaseContext(), ChooseYourCarActivity.class));
+				startActivity(new Intent(getBaseContext(), MainActivity.class));
 			}
 		});
 		typeId = (EditText)findViewById(R.id.write_friends_id);

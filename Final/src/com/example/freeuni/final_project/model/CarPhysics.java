@@ -10,6 +10,7 @@ public class CarPhysics {
 
 	private static final int CLICK_INTERVAL = 500;
 	private static final float MAX_VELOCITY = 1000;
+	private static final float FINISH_COORD = 1000;
 	
 	private float positionYchange = 0;
 	private float positionY = 0;
@@ -24,8 +25,11 @@ public class CarPhysics {
 	public synchronized void changeVelocityY(float velocityY) {
 		
 		this.velocityY += velocityY;
-		if(speedChangeListener != null)
+		if(speedChangeListener != null){
 			speedChangeListener.speedChanged(this.velocityY);
+			
+			
+		}
 		System.out.println(this.velocityY);
 		
 	}
@@ -56,6 +60,12 @@ public class CarPhysics {
 		this.positionYchange = dt * this.velocityY;
 		this.positionY += positionYchange;
 		
+		if(this.positionY >= FINISH_COORD){
+			if(speedChangeListener != null){
+				speedChangeListener.finishLineCrossed();
+//				speedChangeListener = null;
+			}
+		}
 		this.previousCallTimeStamp = now;
 		
 		return positionYchange;
@@ -80,7 +90,7 @@ public class CarPhysics {
 			changeVelocityY(velocityChange);
 			
 		}
-		lastClickTime = now+CLICK_INTERVAL;
+		lastClickTime = now + CLICK_INTERVAL;
 	}
 
 	public void setLastClickTimeZero() {
