@@ -15,7 +15,7 @@ import android.app.Application;
 public class App extends Application implements SpeedUpListener {
 	private Socket socket;
 	public static final String HOST_NAME = "192.168.0.184";
-	public static final int PORT_NUMBER = 8095;
+	public static final int PORT_NUMBER = 8098;
 	private static final String ID_STRING = "YourId:";
 	private static final String CONNECTION_STRING = "connect:";
 	private static final String WANTS_CONNECTION_STRING = "wantsConnection:";
@@ -32,7 +32,7 @@ public class App extends Application implements SpeedUpListener {
 			@Override
 			public void run() {
 				startConnection();
-				waitForGameToStart();
+				//
 			}
 
 		}).start();
@@ -46,10 +46,12 @@ public class App extends Application implements SpeedUpListener {
 			
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
+				System.out.println(inputLine);
 				if ((inputLine.length() > GAME_STARTED.length())
 						&& inputLine.substring(0, GAME_STARTED.length()).equals(
 								GAME_STARTED)) {
-
+					System.out.println(inputLine);
+					
 					//start game
 					break;
 				}
@@ -76,6 +78,7 @@ public class App extends Application implements SpeedUpListener {
 
 					String id = inputLine.substring(ID_STRING.length());
 					myId = Integer.parseInt(id);
+					waitForGameToStart();
 					System.out.println("my id " + myId);
 					break;
 				}
@@ -129,30 +132,35 @@ public class App extends Application implements SpeedUpListener {
 
 	@Override
 	public void onWaitForFriend() {
-
+		System.out.println("shemovida");
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				BufferedReader in = null;
 				try {
-					in = new BufferedReader(new InputStreamReader(socket
-							.getInputStream()));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				String inputLine;
-				try {
+					in = new BufferedReader(new InputStreamReader(
+							socket.getInputStream()));
+					
+					String inputLine;
 					while ((inputLine = in.readLine()) != null) {
+					
 						if ((inputLine.length() > WANTS_CONNECTION_STRING.length())&& inputLine.substring(0,WANTS_CONNECTION_STRING.length()).equals(WANTS_CONNECTION_STRING)) {
 
 							String theirIdStr = inputLine.substring(WANTS_CONNECTION_STRING.length());
 							theirId = Integer.parseInt(theirIdStr);
+							System.out.println("theirId"+theirIdStr);
+							waitForGameToStart();
 							break;
 						}
 
 					}
+					
+					
+						
+
+					
+					System.out.println("gavida");
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -160,10 +168,11 @@ public class App extends Application implements SpeedUpListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				System.out.println("cats");
 			}
 
 		}).start();
-	}
+		
+		}
 
 }
