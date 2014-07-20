@@ -33,15 +33,10 @@ public class App extends Application implements SpeedUpListener {
 		setMyCarPhysics(new  CarPhysics());
 		setTheirCarPhysics(new CarPhysics());
 	    //theirCarPhysics.changeVelocityY(200);
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				startConnection();
-				
-			}
-
-		}).start();
+		
+	}
+	public int getMyId(){
+		return myId;
 	}
 
 	protected void waitForGameToStart() {
@@ -56,6 +51,7 @@ public class App extends Application implements SpeedUpListener {
 				if ((inputLine.length() > GAME_STARTED.length())
 						&& inputLine.substring(0, GAME_STARTED.length()).equals(
 								GAME_STARTED)) {
+					
 					startListeningSpeedUpNotifications();
 					
 					//start game
@@ -232,6 +228,18 @@ public class App extends Application implements SpeedUpListener {
 
 	public void setTheirCarPhysics(CarPhysics theirCarPhysics) {
 		this.theirCarPhysics = theirCarPhysics;
+	}
+	@Override
+	public void onStartConnection() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				startConnection();
+				
+			}
+
+		}).start();
 	}
 
 }
