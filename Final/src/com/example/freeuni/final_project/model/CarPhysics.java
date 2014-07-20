@@ -25,7 +25,10 @@ public class CarPhysics {
 	}
 	
 	public boolean isMoving(){
-		if(velocityY <= 0) return false;
+		if(velocityY <= 0){
+			velocityY = 0;
+			return false;
+		}
 		else return true;
 	}
 	
