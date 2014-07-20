@@ -16,7 +16,7 @@ import android.app.Application;
 public class App extends Application implements SpeedUpListener {
 	private Socket socket;
 	public static final String HOST_NAME = "192.168.0.184";
-	public static final int PORT_NUMBER = 9099;
+	public static final int PORT_NUMBER = 9090;
 	private static final String ID_STRING = "YourId:";
 	private static final String CONNECTION_STRING = "connect:";
 	private static final String WANTS_CONNECTION_STRING = "wantsConnection:";
@@ -38,7 +38,7 @@ public class App extends Application implements SpeedUpListener {
 			@Override
 			public void run() {
 				startConnection();
-				//
+				
 			}
 
 		}).start();
