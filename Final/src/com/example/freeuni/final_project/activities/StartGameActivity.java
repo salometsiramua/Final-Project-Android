@@ -38,9 +38,9 @@ public class StartGameActivity extends Activity{
 				startActivity(new Intent(getBaseContext(), MainActivity.class));
 			}
 		});
-		startNewGameButton.setBackgroundColor(Color.WHITE);
+		//startNewGameButton.setBackgroundColor(Color.WHITE);
 		typeId = (EditText)findViewById(R.id.write_friends_id);
-		typeId.setBackgroundColor(Color.WHITE);
+		//typeId.setBackgroundColor(Color.WHITE);
 		joinButton = (Button)findViewById(R.id.submit);
 		joinButton.setOnClickListener(new OnClickListener() {
 			
@@ -50,6 +50,6 @@ public class StartGameActivity extends Activity{
 				startActivity(new Intent(getBaseContext(), MainActivity.class));
 			}
 		});
-		joinButton.setBackgroundColor(Color.WHITE);
+		//joinButton.setBackgroundColor(Color.WHITE);
 	}
 }

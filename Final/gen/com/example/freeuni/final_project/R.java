@@ -26,9 +26,10 @@ public final class R {
         public static final int lighth_green_car=0x7f020002;
         public static final int pedal=0x7f020003;
         public static final int purple_car=0x7f020004;
-        public static final int red_car=0x7f020005;
-        public static final int start=0x7f020006;
-        public static final int yellow_car=0x7f020007;
+        public static final int race_flag=0x7f020005;
+        public static final int red_car=0x7f020006;
+        public static final int start=0x7f020007;
+        public static final int yellow_car=0x7f020008;
     }
     public static final class id {
         public static final int action_settings=0x7f080011;
