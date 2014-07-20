@@ -348,7 +348,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 				RestartGameDialog dialog = new RestartGameDialog();
 				
 				dialog.listener = (RestartGameListener)MainActivity.this;
-				
+				dialog.setCancelable(false);
 				dialog.show(getFragmentManager(), "");
 
 			}
