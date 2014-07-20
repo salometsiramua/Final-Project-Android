@@ -17,21 +17,33 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.freeuni.final_project.MainActivity"
+            android:name="com.example.freeuni.final_project.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+               
             </intent-filter>
         </activity>
         
          <activity
-            android:name="com.example.freeuni.final_project.ChooseYourCarActivity"
+            android:name="com.example.freeuni.final_project.activities.ChooseYourCarActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+            </intent-filter>
+        </activity>
+        
+         
+         
+         
+         <activity
+            android:name="com.example.freeuni.final_project.activities.StartGameActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

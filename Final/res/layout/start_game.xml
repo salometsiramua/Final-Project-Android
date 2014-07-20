@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     >
+    
+
+    <Button
+        android:id="@+id/start_new_game" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_new"
+        android:layout_gravity="left"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        />
+    
+    <TextView
+        android:id="@+id/join_friend" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/join_friend"
+        android:layout_gravity="left"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="160dp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+    <EditText
+        android:id="@+id/write_friends_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:inputType="number"
+        android:hint="@string/type_friends_id"
+        />
+     <Button
+        android:id="@+id/submit" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        />
+    </LinearLayout>
+</LinearLayout>
