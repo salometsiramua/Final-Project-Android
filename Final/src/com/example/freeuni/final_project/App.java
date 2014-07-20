@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
+import com.example.freeuni.final_project.model.CarPhysics;
 
 import android.R.integer;
 import android.app.Application;
@@ -23,11 +24,15 @@ public class App extends Application implements SpeedUpListener {
 	private int myId;
 	private int theirId;
 	private static final String SPEED_UP = "speedUp:";
+	private CarPhysics myCarPhysics;
+	private CarPhysics theirCarPhysics;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-
+		setMyCarPhysics(new  CarPhysics());
+		setTheirCarPhysics(new CarPhysics());
+	    //theirCarPhysics.changeVelocityY(200);
 		new Thread(new Runnable() {
 
 			@Override
@@ -81,7 +86,7 @@ public class App extends Application implements SpeedUpListener {
 				
 					
 					Float speed = Float.parseFloat(inputLine.substring(SPEED_UP.length()));
-					System.out.println(speed);
+					theirCarPhysics.setVelocityY(speed);
 					
 				}
 
@@ -128,19 +133,26 @@ public class App extends Application implements SpeedUpListener {
 	}
 
 	@Override
-	public void speedUpListner(float speed) {
+	public void speedUpListner(final float speed) {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				PrintWriter out = null;
+				try {
+					if (socket != null) {
 
-		PrintWriter out = null;
-		try {
-			if (socket != null) {
-
-				out = new PrintWriter(socket.getOutputStream(), true);
-				out.println(SPEED_UP+speed);
+						out = new PrintWriter(socket.getOutputStream(), true);
+						out.println(SPEED_UP+speed);
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		}).start();
+	
 
 	}
 
@@ -205,5 +217,21 @@ public class App extends Application implements SpeedUpListener {
 		}).start();
 		
 		}
+
+	public CarPhysics getMyCarPhysics() {
+		return myCarPhysics;
+	}
+
+	public void setMyCarPhysics(CarPhysics myCarPhysics) {
+		this.myCarPhysics = myCarPhysics;
+	}
+
+	public CarPhysics getTheirCarPhysics() {
+		return theirCarPhysics;
+	}
+
+	public void setTheirCarPhysics(CarPhysics theirCarPhysics) {
+		this.theirCarPhysics = theirCarPhysics;
+	}
 
 }

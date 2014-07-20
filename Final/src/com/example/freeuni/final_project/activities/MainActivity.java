@@ -5,6 +5,7 @@ import java.util.Timer;
 
 import javax.xml.soap.Text;
 
+import com.example.freeuni.final_project.App;
 import com.example.freeuni.final_project.R;
 import com.example.freeuni.final_project.activities.RestartGameDialog.RestartGameListener;
 import com.example.freeuni.final_project.listeners.SpeedChangeListener;
@@ -16,6 +17,7 @@ import com.example.freeuni.final_project.model.StateManager;
 
 import android.R.color;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -65,9 +67,9 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	private boolean rightClick = true;
 	
 	private StateManager stateManager;
-	
 	private CarPhysics myCarPhysics;
 	private CarPhysics theirCarPhysics;
+	
 	
 	
     @Override
@@ -78,10 +80,10 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
         state = new State(10, 0);
         stateManager = new StateManager();
         listener  = (SpeedUpListener) getApplication();
-        myCarPhysics = new  CarPhysics();
+        App app = (App) getApplication();
+        myCarPhysics = app.getMyCarPhysics();
         myCarPhysics.speedChangeListener = this;
-        theirCarPhysics =  new CarPhysics();
-        theirCarPhysics.changeVelocityY(200);
+        theirCarPhysics = app.getTheirCarPhysics();
         
         Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
@@ -93,6 +95,8 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        continueMoving();
+        
     }
 
 	@Override
@@ -185,13 +189,13 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 			@Override
 			public void onClick(View v) {
 				
-				if(rightClick == true){
+			//	if(rightClick == true){
 				
 					leftClick = true;
 					rightClick = false;
 					
 					changeMovement();
-				}
+				//}
 			}
 		});
 
@@ -203,7 +207,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 		
 		if(firstClick){
 			
-			continueMoving();
+			
 			decreaseVelocityThread();
 			firstClick = false;
 		}
@@ -264,10 +268,10 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 							moveCar();
 						}
 					});
-					if(!myCarPhysics.isMoving()&&!theirCarPhysics.isMoving()){
+				if(!myCarPhysics.isMoving()){//&&!theirCarPhysics.isMoving()){
 						firstClick = true;
 						myCarPhysics.setLastClickTimeZero();
-						break;
+						//break;
 					}
 				}
 			}

@@ -100,6 +100,11 @@ public class CarPhysics {
 		lastClickTime = 0;
 		
 	}
+
+	public void setVelocityY(Float speed) {
+		this.velocityY = speed;
+		
+	}
 	
 	
 

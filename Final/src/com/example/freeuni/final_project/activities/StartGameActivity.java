@@ -43,7 +43,7 @@ public class StartGameActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				//speedUpListener.onSubmitFriendsId(Integer.parseInt(typeId.getText().toString()));
+				speedUpListener.onSubmitFriendsId(Integer.parseInt(typeId.getText().toString()));
 				startActivity(new Intent(getBaseContext(), MainActivity.class));
 			}
 		});
