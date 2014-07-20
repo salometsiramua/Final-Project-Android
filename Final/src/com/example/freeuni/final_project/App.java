@@ -15,7 +15,7 @@ import android.app.Application;
 public class App extends Application implements SpeedUpListener {
 	private Socket socket;
 	public static final String HOST_NAME = "192.168.0.184";
-	public static final int PORT_NUMBER = 8098;
+	public static final int PORT_NUMBER = 9099;
 	private static final String ID_STRING = "YourId:";
 	private static final String CONNECTION_STRING = "connect:";
 	private static final String WANTS_CONNECTION_STRING = "wantsConnection:";
@@ -51,7 +51,7 @@ public class App extends Application implements SpeedUpListener {
 				if ((inputLine.length() > GAME_STARTED.length())
 						&& inputLine.substring(0, GAME_STARTED.length()).equals(
 								GAME_STARTED)) {
-					System.out.println(inputLine);
+					startListeningSpeedUpNotifications();
 					
 					//start game
 					break;
@@ -66,13 +66,43 @@ public class App extends Application implements SpeedUpListener {
 		
 	}
 
+	private void startListeningSpeedUpNotifications() {
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new InputStreamReader(
+					socket.getInputStream()));
+			
+			String inputLine;
+			while ((inputLine = in.readLine()) != null) {
+				System.out.println(inputLine);
+				if ((inputLine.length() > SPEED_UP.length())
+						&& inputLine.substring(0, SPEED_UP.length()).equals(
+								SPEED_UP)) {
+				
+					
+					Float speed = Float.parseFloat(inputLine.substring(SPEED_UP.length()));
+					System.out.println(speed);
+					
+				}
+
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 	private void startConnection() {
+		System.out.println("SDFDFSDF");
 		try {
 			socket = new Socket(HOST_NAME, PORT_NUMBER);
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
+				System.out.println(inputLine);
 				if ((inputLine.length() > ID_STRING.length())
 						&& inputLine.substring(0, ID_STRING.length()).equals(
 								ID_STRING)) {
