@@ -151,13 +151,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				if(rightClick == true){
+				//if(rightClick == true){
 				
 					leftClick = true;
 					rightClick = false;
 					
 					changeMovement();
-				}
+				//}
 			}
 		});
 
@@ -189,13 +189,13 @@ public class MainActivity extends Activity {
 					}
 					
 					
-					if(myCarPhysics.isMoving()){
+					
 						myCarPhysics.changeVelocityY(-50);
-					}else{
-						firstClick = true;
-						myCarPhysics.setLastClickTimeZero();
-						break;
-					}
+						if(!myCarPhysics.isMoving()){
+							firstClick = true;
+							myCarPhysics.setLastClickTimeZero();
+							break;
+						}
 					
 				}
 			}
@@ -234,7 +234,7 @@ public class MainActivity extends Activity {
 							moveCar();
 						}
 					});
-					if(!myCarPhysics.isMoving()){
+					if(!myCarPhysics.isMoving()&&!theirCarPhysics.isMoving()){
 						firstClick = true;
 						myCarPhysics.setLastClickTimeZero();
 						break;
