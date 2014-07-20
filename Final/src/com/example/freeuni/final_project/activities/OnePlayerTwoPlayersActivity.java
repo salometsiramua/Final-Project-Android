@@ -28,7 +28,10 @@ public class OnePlayerTwoPlayersActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getApplicationContext(), MainActivity.class));
+				Intent in = new Intent(getApplicationContext(), MainActivity.class);
+				in.putExtra("one_or_two", "one");
+				startActivity(in);
+				
 			}
 		});
 		twoPlayersButton = (Button) findViewById(R.id.two_players);
@@ -38,7 +41,7 @@ public class OnePlayerTwoPlayersActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				Intent in = new Intent(getBaseContext(), StartGameActivity.class);
-				in.putExtra("one_or_two", "one");
+				
 				startActivity(in);
 			}
 		});

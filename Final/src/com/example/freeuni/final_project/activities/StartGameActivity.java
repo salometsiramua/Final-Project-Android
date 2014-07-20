@@ -3,6 +3,7 @@ package com.example.freeuni.final_project.activities;
 import com.example.freeuni.final_project.App;
 import com.example.freeuni.final_project.R;
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
+import com.example.freeuni.final_project.listeners.StartGameListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-public class StartGameActivity extends Activity{
+public class StartGameActivity extends Activity implements StartGameListener{
 
 	private Button startNewGameButton;
 	private EditText typeId;
@@ -31,6 +32,7 @@ public class StartGameActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		((App)getApplication()).setStartGameListener(this);
 		speedUpListener = (SpeedUpListener) getApplication();
 		speedUpListener.onStartConnection();
 		setContentView(R.layout.start_game);
@@ -61,7 +63,7 @@ public class StartGameActivity extends Activity{
 				yourId.setLayoutParams(params);
 				layout.addView(yourId);
 				
-				startActivity(new Intent(getBaseContext(), MainActivity.class));
+				
 			}
 		});
 		//startNewGameButton.setBackgroundColor(Color.WHITE);
@@ -73,9 +75,17 @@ public class StartGameActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				speedUpListener.onSubmitFriendsId(Integer.parseInt(typeId.getText().toString()));
-				startActivity(new Intent(getBaseContext(), MainActivity.class));
+				
 			}
 		});
 		//joinButton.setBackgroundColor(Color.WHITE);
+	}
+
+	@Override
+	public void onGameStart() {
+		Intent in = new Intent(getApplicationContext(), MainActivity.class);
+		in.putExtra("one_or_two", "one");
+		startActivity(in);
+		
 	}
 }

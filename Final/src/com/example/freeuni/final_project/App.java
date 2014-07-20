@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
+import com.example.freeuni.final_project.listeners.StartGameListener;
 import com.example.freeuni.final_project.model.CarPhysics;
 
 import android.R.integer;
@@ -26,6 +27,7 @@ public class App extends Application implements SpeedUpListener {
 	private static final String SPEED_UP = "speedUp:";
 	private CarPhysics myCarPhysics;
 	private CarPhysics theirCarPhysics;
+	private StartGameListener startGameListener;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -38,7 +40,9 @@ public class App extends Application implements SpeedUpListener {
 	public int getMyId(){
 		return myId;
 	}
-
+	public void setStartGameListener(StartGameListener startGameListener){
+		this.startGameListener = startGameListener;
+	}
 	protected void waitForGameToStart() {
 		BufferedReader in;
 		try {
@@ -51,7 +55,7 @@ public class App extends Application implements SpeedUpListener {
 				if ((inputLine.length() > GAME_STARTED.length())
 						&& inputLine.substring(0, GAME_STARTED.length()).equals(
 								GAME_STARTED)) {
-					
+					startGameListener.onGameStart();
 					startListeningSpeedUpNotifications();
 					
 					//start game
