@@ -12,6 +12,16 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="30dp"
         />
+    
+    <TextView
+        android:id="@+id/speedometer" 
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+       
+        android:layout_gravity="right"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="20dp"
+        />
     <View 
         android:id="@+id/rightLine"
         android:layout_width="15dp"

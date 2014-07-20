@@ -2,6 +2,8 @@ package com.example.freeuni.final_project.model;
 
 import java.util.Date;
 
+import com.example.freeuni.final_project.listeners.SpeedChangeListener;
+
 import android.text.format.Time;
 
 public class CarPhysics {
@@ -14,12 +16,15 @@ public class CarPhysics {
 	private float velocityY = 0;
 	//private float accelerationY = 10;
 
+	public SpeedChangeListener speedChangeListener;
+	
 	private long lastClickTime = 0;
 	
 	
 	public synchronized void changeVelocityY(float velocityY) {
-		this.velocityY += velocityY;
 		
+		this.velocityY += velocityY;
+	//	speedChangeListener.speedChanged(this.velocityY);
 		System.out.println(this.velocityY);
 		
 	}

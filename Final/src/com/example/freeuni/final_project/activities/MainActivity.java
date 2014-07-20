@@ -3,13 +3,17 @@ package com.example.freeuni.final_project.activities;
 import java.util.Date;
 import java.util.Timer;
 
+import javax.xml.soap.Text;
+
 import com.example.freeuni.final_project.R;
+import com.example.freeuni.final_project.listeners.SpeedChangeListener;
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
 import com.example.freeuni.final_project.model.CarPhysics;
 import com.example.freeuni.final_project.model.DashedView;
 import com.example.freeuni.final_project.model.State;
 import com.example.freeuni.final_project.model.StateManager;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -28,8 +32,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SpeedChangeListener{
 
 	private static final int SLEEP_INTERVAL = 33;
 	private static final int DECREASE_INTERVAL = 1000;
@@ -45,7 +50,7 @@ public class MainActivity extends Activity {
 	
 	private ImageView myCar;
 	private ImageView theirCar;
-	
+	private TextView mySpeed;
 	private State state;
 	private SpeedUpListener listener= null;
 	
@@ -58,8 +63,9 @@ public class MainActivity extends Activity {
 	
 	private StateManager stateManager;
 	
-	private CarPhysics myCarPhysics = new CarPhysics();
+	private CarPhysics myCarPhysics;
 	private CarPhysics theirCarPhysics;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,8 @@ public class MainActivity extends Activity {
         state = new State(10, 0);
         stateManager = new StateManager();
         listener  = (SpeedUpListener) getApplication();
+        myCarPhysics = new  CarPhysics();
+        myCarPhysics.speedChangeListener = this;
         theirCarPhysics =  new CarPhysics();
         theirCarPhysics.changeVelocityY(200);
         
@@ -108,6 +116,18 @@ public class MainActivity extends Activity {
 				}
 			});
 	        layout.addView(chooseYourCar);
+	        
+	        mySpeed = (TextView)findViewById(R.id.speedometer);
+	        mySpeed.setBackgroundColor(Color.argb(100, 255, 255, 255));
+	        LayoutParams params = (LayoutParams) mySpeed.getLayoutParams();
+	        params.setMargins(700, 10, 20, 300);
+	        mySpeed.setLayoutParams(params);
+	        mySpeed.setText("speed: 0");
+//	        mySpeed.
+	        
+	        mySpeed.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//	        layout.addView(mySpeed);
+	        
 	 }
 
 	private void initLine() {
@@ -277,6 +297,11 @@ public class MainActivity extends Activity {
 		
 		line.setLayoutParams(params);
 
+	}
+
+	@Override
+	public void speedChanged(float currSpeed) {
+		mySpeed.setText("speed: "+ currSpeed);
 	}
 	
 	

@@ -4,6 +4,7 @@ import com.example.freeuni.final_project.R;
 import com.example.freeuni.final_project.listeners.SpeedUpListener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +33,8 @@ public class StartGameActivity extends Activity{
 			
 			@Override
 			public void onClick(View arg0) {
-				speedUpListener.onWaitForFriend();
+				//speedUpListener.onWaitForFriend();
+				startActivity(new Intent(getBaseContext(), ChooseYourCarActivity.class));
 			}
 		});
 		typeId = (EditText)findViewById(R.id.write_friends_id);
@@ -41,7 +43,8 @@ public class StartGameActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				speedUpListener.onSubmitFriendsId(Integer.parseInt(typeId.getText().toString()));
+				//speedUpListener.onSubmitFriendsId(Integer.parseInt(typeId.getText().toString()));
+				startActivity(new Intent(getBaseContext(), MainActivity.class));
 			}
 		});
 	}
