@@ -24,7 +24,8 @@ public class CarPhysics {
 	public synchronized void changeVelocityY(float velocityY) {
 		
 		this.velocityY += velocityY;
-	//	speedChangeListener.speedChanged(this.velocityY);
+		if(speedChangeListener != null)
+			speedChangeListener.speedChanged(this.velocityY);
 		System.out.println(this.velocityY);
 		
 	}

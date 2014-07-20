@@ -299,9 +299,18 @@ public class MainActivity extends Activity implements SpeedChangeListener{
 
 	}
 
+	private Handler handler = new Handler();
 	@Override
-	public void speedChanged(float currSpeed) {
-		mySpeed.setText("speed: "+ currSpeed);
+	public void speedChanged(final float currSpeed) {
+		handler.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				mySpeed.setText("speed: "+ currSpeed);
+				listener.speedUpListner();
+			}
+		});
+		
 	}
 	
 	
