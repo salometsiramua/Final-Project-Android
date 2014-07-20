@@ -17,6 +17,8 @@ public class CarPhysics {
 	private float velocityY = 0;
 	//private float accelerationY = 10;
 
+	private boolean finished = false;
+	
 	public SpeedChangeListener speedChangeListener;
 	
 	private long lastClickTime = 0;
@@ -61,9 +63,10 @@ public class CarPhysics {
 		this.positionY += positionYchange;
 		
 		if(this.positionY >= FINISH_COORD){
-			if(speedChangeListener != null){
+			if(speedChangeListener != null && finished == false){
 				speedChangeListener.finishLineCrossed();
 //				speedChangeListener = null;
+				finished = true;
 			}
 		}
 		this.previousCallTimeStamp = now;

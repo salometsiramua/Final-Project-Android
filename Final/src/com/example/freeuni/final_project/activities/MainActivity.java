@@ -348,7 +348,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 				dialog.show(getFragmentManager(), "");
 
 			}
-		});
+		}).start();
 		
 		
 	}
@@ -361,7 +361,8 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		}else{
-			startActivity(new Intent(getBaseContext(), StartGameActivity.class));
+//			startActivity(new Intent(getBaseContext(), StartGameActivity.class));
+			finish();
 		}
 	}
 	

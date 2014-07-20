@@ -8,11 +8,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class RestartGameDialog extends DialogFragment{
 	
@@ -32,7 +28,6 @@ public class RestartGameDialog extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
     	
-    	
     	arr = new String[2];
     	arr[0] = "Play again";
     	arr[1] = "Exit";
@@ -43,7 +38,6 @@ public class RestartGameDialog extends DialogFragment{
                    public void onClick(DialogInterface dialog, int which) {
                 	   listener.setOnAnswerListener(arr[which]);
 						dismiss();
-
                    }
                
         });
