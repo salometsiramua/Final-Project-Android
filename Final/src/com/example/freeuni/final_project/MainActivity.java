@@ -203,11 +203,7 @@ public class MainActivity extends Activity {
 	}
 	
 
-	protected void speedUp() {
-		
-		listener.speedUpListner();
 
-	}
 	
 	
 	private void continueMoving(){

@@ -22,6 +22,7 @@ public class App extends Application implements SpeedUpListener {
 	private static final String GAME_STARTED = "gameStarted:";
 	private int myId;
 	private int theirId;
+	private static final String SPEED_UP = "speedUp:";
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -97,14 +98,14 @@ public class App extends Application implements SpeedUpListener {
 	}
 
 	@Override
-	public void speedUpListner() {
+	public void speedUpListner(float speed) {
 
 		PrintWriter out = null;
 		try {
 			if (socket != null) {
 
 				out = new PrintWriter(socket.getOutputStream(), true);
-				out.println("speadup");
+				out.println(SPEED_UP+speed);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

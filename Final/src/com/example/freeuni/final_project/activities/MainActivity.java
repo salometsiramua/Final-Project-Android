@@ -224,11 +224,7 @@ public class MainActivity extends Activity implements SpeedChangeListener{
 	}
 	
 
-	protected void speedUp() {
-		
-		listener.speedUpListner();
-
-	}
+	
 	
 	
 	private void continueMoving(){
@@ -307,7 +303,7 @@ public class MainActivity extends Activity implements SpeedChangeListener{
 			@Override
 			public void run() {
 				mySpeed.setText("speed: "+ currSpeed);
-				listener.speedUpListner();
+				listener.speedUpListner(currSpeed);
 			}
 		});
 		
