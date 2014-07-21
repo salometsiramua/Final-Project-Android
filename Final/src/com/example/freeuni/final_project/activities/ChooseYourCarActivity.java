@@ -58,11 +58,12 @@ public class ChooseYourCarActivity extends Activity{
 	}
 
 	private void getCars() {
-		carIds.add(R.id.imageView1);
-		carIds.add(R.id.imageView2);
-		carIds.add(R.id.imageView3);
-		carIds.add(R.id.imageView4);
-		carIds.add(R.id.imageView5);
+		carIds.add(R.drawable.green_car);
+	
+		carIds.add(R.drawable.red_car);
+		carIds.add(R.drawable.lighth_green_car);
+		carIds.add(R.drawable.purple_car);
+		carIds.add(R.drawable.yellow_car);
 		hm = new HashMap<>();
 		for(int i = 0; i < carIds.size(); i++){
 			ImageView img = (ImageView)findViewById(carIds.get(i));
