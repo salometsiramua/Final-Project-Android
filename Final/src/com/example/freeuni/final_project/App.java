@@ -16,7 +16,7 @@ import android.app.Application;
 
 public class App extends Application implements SpeedUpListener {
 	private Socket socket;
-	public static final String HOST_NAME = "192.168.0.184";
+	public static final String HOST_NAME = "192.168.76.230";
 	public static final int PORT_NUMBER = 9090;
 	private static final String ID_STRING = "YourId:";
 	private static final String CONNECTION_STRING = "connect:";
