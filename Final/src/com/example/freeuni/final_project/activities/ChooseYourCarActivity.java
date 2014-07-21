@@ -47,7 +47,9 @@ public class ChooseYourCarActivity extends Activity{
 					System.out.println("daechira");
 					v.setBackgroundColor(color.holo_blue_bright);
 					chosenCar = carIds.get(hm.get((ImageView)v));
-					//((App)getApplication()).
+					app.setMyCarImageId(chosenCar);
+					android.os.Process.killProcess(android.os.Process.myPid());
+		            System.exit(1);
 				}
 			});
 		}
