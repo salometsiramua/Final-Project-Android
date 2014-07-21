@@ -35,6 +35,7 @@ public class App extends Application implements SpeedUpListener {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
+		myCarImageId = R.id.imageView1;
 		setMyCarPhysics(new  CarPhysics());
 		setTheirCarPhysics(new CarPhysics());
 	    //theirCarPhysics.changeVelocityY(200);
@@ -92,7 +93,8 @@ public class App extends Application implements SpeedUpListener {
 					theirCarPhysics.setVelocityY(speed);
 					
 				}
-
+				checkForWinningOrLosing(inputLine);
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -102,6 +104,21 @@ public class App extends Application implements SpeedUpListener {
 		
 	}
 
+	private void checkForWinningOrLosing(String inputLine) {
+		if ((inputLine.length() > PLAYER_WON.length())
+				&& inputLine.substring(0, PLAYER_WON.length()).equals(
+						PLAYER_WON)) {
+		
+			
+			System.out.println("other player won");
+			
+		}else if ((inputLine.length() > PLAYER_LOST.length())
+				&& inputLine.substring(0, PLAYER_LOST.length()).equals(
+						PLAYER_LOST)) {
+			System.out.println("other player lost");
+		}
+		
+	}
 	private void startConnection() {
 		System.out.println("SDFDFSDF");
 		try {
