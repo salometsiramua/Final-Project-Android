@@ -75,16 +75,20 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Bundle extras = getIntent().getExtras();
+        String oneOrTwo =extras.getString("one_or_two");
         setContentView(R.layout.activity_main);
         initView();
         state = new State(10, 0);
         stateManager = new StateManager();
-        listener  = (SpeedUpListener) getApplication();
+        if(oneOrTwo.equals("one")) listener = null;
+        else listener  = (SpeedUpListener) getApplication();
         App app = (App) getApplication();
         myCarPhysics = app.getMyCarPhysics();
         myCarPhysics.speedChangeListener = this;
         theirCarPhysics = app.getTheirCarPhysics();
-        
+      
         Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
@@ -95,6 +99,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        if(oneOrTwo.equals("one")) theirCarPhysics.startComputerPlaying();
         continueMoving();
         
     }
@@ -320,7 +325,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 			@Override
 			public void run() {
 				mySpeed.setText("speed: "+ currSpeed);
-				listener.speedUpListner(currSpeed);
+				if(listener!=null) listener.speedUpListner(currSpeed);
 			}
 		});
 		
