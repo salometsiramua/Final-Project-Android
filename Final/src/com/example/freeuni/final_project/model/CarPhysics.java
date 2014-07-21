@@ -5,14 +5,11 @@ import java.util.Random;
 
 import com.example.freeuni.final_project.listeners.SpeedChangeListener;
 
-import android.content.res.Resources.Theme;
-import android.text.format.Time;
-
 public class CarPhysics {
 
 	private static final int CLICK_INTERVAL = 500;
 	private static final float MAX_VELOCITY = 1000;
-	private static final float FINISH_COORD = 1000;
+	private static final float FINISH_COORD = 10000;
 	private static final int DECREASE_INTERVAL = 1000;
 	
 	private float positionYchange = 0;

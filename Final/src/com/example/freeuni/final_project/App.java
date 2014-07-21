@@ -35,7 +35,7 @@ public class App extends Application implements SpeedUpListener {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		myCarImageId = R.id.imageView1;
+		myCarImageId = R.drawable.lighth_green_car;
 		setMyCarPhysics(new  CarPhysics());
 		setTheirCarPhysics(new CarPhysics());
 	    //theirCarPhysics.changeVelocityY(200);
@@ -282,6 +282,7 @@ public class App extends Application implements SpeedUpListener {
 		return myCarImageId;
 	}
 	public void setMyCarImageId(int myCarImageId) {
+		System.out.println("shemovidAAAAA");
 		this.myCarImageId = myCarImageId;
 	}
 

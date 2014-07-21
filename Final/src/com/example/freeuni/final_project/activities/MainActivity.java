@@ -126,8 +126,11 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	     
 	        myCar = (ImageView) findViewById(R.id.my_car);
 
+	       // myCar.setImageResource(R.drawable.purple_car);
+	        
 	        myCar.setImageResource(app.getMyCarImageId());
 	        
+	        System.out.println("id dabechdos: " + app.getMyCarImageId());
 	        theirCar = (ImageView)findViewById(R.id.their_car);
 	        line = (DashedView) findViewById(R.id.line);
 	        initLine();
