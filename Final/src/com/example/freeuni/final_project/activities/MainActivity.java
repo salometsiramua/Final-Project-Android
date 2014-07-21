@@ -365,13 +365,14 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	@Override
 	public void setOnAnswerListener(String answer) {
 		if(answer.equals("Exit")){
-			Intent intent = new Intent(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
+//			Intent intent = new Intent(Intent.ACTION_MAIN);
+//			intent.addCategory(Intent.CATEGORY_HOME);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			startActivity(intent);
+			System.exit(0);
 		}else{
-//			startActivity(new Intent(getBaseContext(), StartGameActivity.class));
-			finish();
+			android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
 		}
 	}
 	

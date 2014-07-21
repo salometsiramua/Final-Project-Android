@@ -63,7 +63,7 @@ public class CarPhysics {
 						e.printStackTrace();
 					}
 					System.out.println("vlooo " +velocityY);
-					if(velocityY + velocity > MAX_VELOCITY) changeVelocityY(MAX_VELOCITY);
+					if(velocityY + velocity > MAX_VELOCITY) changeVelocityY(MAX_VELOCITY - velocityY);
 					else changeVelocityY(velocity);
 				}
 				
