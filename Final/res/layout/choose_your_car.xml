@@ -6,7 +6,7 @@
     >
     <HorizontalScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
        	android:layout_marginTop="40dp"
        	
         >
@@ -15,61 +15,125 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            
-			<ImageView android:id="@+id/imageView1"
-			    android:layout_width="100dp"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="100dp"                
-				android:layout_marginTop="10dp"
-				android:contentDescription="@drawable/green_car"
-  				android:src="@drawable/green_car">
- 			</ImageView>
+           
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+				<ImageView android:id="@+id/imageView1"
+				    android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="100dp"                
+					android:layout_marginTop="10dp"
+					android:contentDescription="@drawable/green_car"
+	  				android:src="@drawable/green_car">
+	 			</ImageView>
+ 				<TextView 
+ 				    android:layout_width="fill_parent"
+ 				    android:layout_height="200dp"
+ 				    android:textSize="20sp"
+ 				    android:textAlignment="center"
+ 				    android:layout_marginLeft="50dp"
+ 				    android:text="@string/descriprion1"/>
     	
+			</LinearLayout>
         
-			<ImageView android:id="@+id/imageView2"
-			    android:layout_width="100dp"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="100dp"                
-				android:layout_marginTop="10dp"
-				
-				android:contentDescription="@drawable/red_car"
-				
-  				android:src="@drawable/red_car">
- 			</ImageView>
- 			
-			<ImageView android:id="@+id/imageView3"
-			    android:layout_width="100dp"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="100dp"                
-				android:layout_marginTop="10dp"
-				
-				android:contentDescription="@drawable/lighth_green_car"
-				
-  				android:src="@drawable/lighth_green_car">
- 			</ImageView>
- 			
-			<ImageView android:id="@+id/imageView4"
-			    android:layout_width="100dp"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="100dp"                
-				android:layout_marginTop="10dp"
-				
-				android:contentDescription="@drawable/purple_car"
-				
-  				android:src="@drawable/purple_car">
- 			</ImageView>
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+				<ImageView android:id="@+id/imageView2"
+				    android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="100dp"                
+					android:layout_marginTop="10dp"
+					
+					android:contentDescription="@drawable/red_car"
+					
+	  				android:src="@drawable/red_car">
+	 			</ImageView>
+	 			<TextView 
+	 				    android:layout_width="fill_parent"
+	 				    android:layout_height="100dp"
+	 				    android:textSize="20sp"
+	 				    android:textAlignment="center"
+	 				    android:layout_marginLeft="50dp"
+	 				    android:text="@string/descriprion2"/>
+	    	
+			</LinearLayout>
+ 			<LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+				<ImageView android:id="@+id/imageView3"
+				    android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="100dp"                
+					android:layout_marginTop="10dp"
+					
+					android:contentDescription="@drawable/lighth_green_car"
+					
+	  				android:src="@drawable/lighth_green_car">
+	 			</ImageView>
+	 			<TextView 
+	 				    android:layout_width="fill_parent"
+	 				    android:layout_height="100dp"
+	 				    android:textSize="20sp"
+	 				    android:textAlignment="center"
+	 				    android:layout_marginLeft="50dp"
+	 				    android:text="@string/descriprion3"/>
     	
-			<ImageView android:id="@+id/imageView5"
-			    android:layout_width="100dp"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="100dp"
-				android:layout_marginRight="100dp"                
-				android:layout_marginTop="10dp"
-				
-				android:contentDescription="@drawable/yellow_car"
-				
-  				android:src="@drawable/yellow_car">
- 			</ImageView>
+			</LinearLayout>
+ 			
+ 			<LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+				<ImageView android:id="@+id/imageView4"
+				    android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="100dp"                
+					android:layout_marginTop="10dp"
+					
+					android:contentDescription="@drawable/purple_car"
+					
+	  				android:src="@drawable/purple_car">
+	 			</ImageView>
+	    	
+				<TextView 
+	 				    android:layout_width="fill_parent"
+	 				    android:layout_height="100dp"
+	 				    android:textSize="20sp"
+	 				    android:textAlignment="center"
+	 				    android:layout_marginLeft="50dp"
+	 				    android:text="@string/descriprion4"/>
+    	
+			</LinearLayout>
+			
+ 			<LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+				<ImageView android:id="@+id/imageView5"
+				    android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="100dp"
+					android:layout_marginRight="100dp"                
+					android:layout_marginTop="10dp"
+					
+					android:contentDescription="@drawable/yellow_car"
+					
+	  				android:src="@drawable/yellow_car">
+	 			</ImageView>
+	 			<TextView 
+	 				    android:layout_width="fill_parent"
+	 				    android:layout_height="100dp"
+	 				    android:textSize="20sp"
+	 				    android:textAlignment="center"
+	 				    android:layout_marginLeft="50dp"
+	 				    android:text="@string/descriprion5"/>
+    	
+			</LinearLayout>
     	</LinearLayout>
    </HorizontalScrollView>
     

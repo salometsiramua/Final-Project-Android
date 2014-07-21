@@ -10,5 +10,11 @@
 	<string name="one"> 1 Player </string>
 	<string name="two"> 2 Players </string>
 	
+	<string name="descriprion1"> Green car \n\n speed: 100 \n model: ferrari</string>
+	<string name="descriprion2"> Orange car \n\n speed: 100 \n model: ferrari </string>
+	<string name="descriprion3"> Cyan car \n\n speed: 100 \n model: ferrari </string>
+	<string name="descriprion4"> Purple car \n\n speed: 100 \n model: ferrari </string>
+	<string name="descriprion5"> Yellow car \n\n speed: 100 \n model: ferrari </string>
+	
 	<string name="type_friends_id"> type game id </string>
 </resources>
