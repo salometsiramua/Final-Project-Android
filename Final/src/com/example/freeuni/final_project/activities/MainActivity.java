@@ -123,6 +123,8 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	        leftLine.setBackgroundColor(Color.WHITE);
 	     
 	        myCar = (ImageView) findViewById(R.id.my_car);
+
+	        
 	        theirCar = (ImageView)findViewById(R.id.their_car);
 	        line = (DashedView) findViewById(R.id.line);
 	        initLine();
@@ -335,7 +337,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	public void finishLineCrossed() {
 		Toast.makeText(getApplicationContext(), "Congratulations! You won! :)", Toast.LENGTH_LONG).show();
 //		
-
+		if(listener!=null) listener.finishedPlaying(App.PLAYER_WON);
 		leftClick = false;
 		rightClick = false;
 		
@@ -365,16 +367,21 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	@Override
 	public void setOnAnswerListener(String answer) {
 		if(answer.equals("Exit")){
-//			Intent intent = new Intent(Intent.ACTION_MAIN);
-//			intent.addCategory(Intent.CATEGORY_HOME);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			startActivity(intent);
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 			System.exit(0);
 		}else{
 			android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
 		}
 	}
-	
+	@Override
+	public void onBackPressed() {
+		if(listener!=null) listener.finishedPlaying(App.PLAYER_LOST);
+		android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+	}
 	
 }

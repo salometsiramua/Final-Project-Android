@@ -6,4 +6,6 @@ public interface SpeedUpListener {
 	public void onSubmitFriendsId(int id);
 	public void onWaitForFriend();
 	public void onStartConnection();
+	public void finishedPlaying(String status);
+	
 }

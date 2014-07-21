@@ -84,7 +84,7 @@ public class StartGameActivity extends Activity implements StartGameListener{
 	@Override
 	public void onGameStart() {
 		Intent in = new Intent(getApplicationContext(), MainActivity.class);
-		in.putExtra("one_or_two", "one");
+		in.putExtra("one_or_two", "two");
 		startActivity(in);
 		
 	}

@@ -4,4 +4,5 @@ public interface SpeedChangeListener {
 
 	void speedChanged(float currSpeed);
 	void finishLineCrossed();
+	
 }

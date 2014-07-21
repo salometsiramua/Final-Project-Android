@@ -17,17 +17,20 @@ import android.app.Application;
 public class App extends Application implements SpeedUpListener {
 	private Socket socket;
 	public static final String HOST_NAME = "192.168.76.230";
-	public static final int PORT_NUMBER = 9090;
+	public static final int PORT_NUMBER = 9091;
 	private static final String ID_STRING = "YourId:";
 	private static final String CONNECTION_STRING = "connect:";
 	private static final String WANTS_CONNECTION_STRING = "wantsConnection:";
 	private static final String GAME_STARTED = "gameStarted:";
+	public static final String PLAYER_WON = "playerWon";
+	public static final String PLAYER_LOST = "playerLost";
 	private int myId;
 	private int theirId;
 	private static final String SPEED_UP = "speedUp:";
 	private CarPhysics myCarPhysics;
 	private CarPhysics theirCarPhysics;
 	private StartGameListener startGameListener;
+	private int myCarImageId;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -244,6 +247,27 @@ public class App extends Application implements SpeedUpListener {
 			}
 
 		}).start();
+	}
+	@Override
+	public void finishedPlaying(String status) {
+		PrintWriter out = null;
+		try {
+			if (socket != null) {
+
+				out = new PrintWriter(socket.getOutputStream(), true);
+				out.println(status);
+				System.out.println(status);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public int getMyCarImageId() {
+		return myCarImageId;
+	}
+	public void setMyCarImageId(int myCarImageId) {
+		this.myCarImageId = myCarImageId;
 	}
 
 }
