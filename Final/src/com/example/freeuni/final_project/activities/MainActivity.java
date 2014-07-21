@@ -48,6 +48,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	private View rightLine;
 	private View leftLine;
 	
+	private App app;
 	private DashedView line;
 	private RelativeLayout panel;
 	
@@ -76,7 +77,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        app = (App) getApplication();
         Bundle extras = getIntent().getExtras();
         String oneOrTwo =extras.getString("one_or_two");
         setContentView(R.layout.activity_main);
@@ -85,7 +86,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
         stateManager = new StateManager();
         if(oneOrTwo.equals("one")) listener = null;
         else listener  = (SpeedUpListener) getApplication();
-        App app = (App) getApplication();
+       
         myCarPhysics = app.getMyCarPhysics();
         myCarPhysics.speedChangeListener = this;
         theirCarPhysics = app.getTheirCarPhysics();
@@ -125,6 +126,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	     
 	        myCar = (ImageView) findViewById(R.id.my_car);
 
+	        myCar.setImageResource(app.getMyCarImageId());
 	        
 	        theirCar = (ImageView)findViewById(R.id.their_car);
 	        line = (DashedView) findViewById(R.id.line);
