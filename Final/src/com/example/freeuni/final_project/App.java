@@ -83,7 +83,7 @@ public class App extends Application implements SpeedUpListener {
 			
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
-				System.out.println(inputLine);
+				System.out.println(" inp "  + inputLine);
 				if ((inputLine.length() > SPEED_UP.length())
 						&& inputLine.substring(0, SPEED_UP.length()).equals(
 								SPEED_UP)) {
@@ -92,8 +92,7 @@ public class App extends Application implements SpeedUpListener {
 					Float speed = Float.parseFloat(inputLine.substring(SPEED_UP.length()));
 					theirCarPhysics.setVelocityY(speed);
 					
-				}
-				checkForWinningOrLosing(inputLine);
+				}else checkForWinningOrLosing(inputLine);
 				
 			}
 		} catch (IOException e) {
@@ -105,17 +104,16 @@ public class App extends Application implements SpeedUpListener {
 	}
 
 	private void checkForWinningOrLosing(String inputLine) {
-		if ((inputLine.length() > PLAYER_WON.length())
-				&& inputLine.substring(0, PLAYER_WON.length()).equals(
+		if ((inputLine.length() == PLAYER_WON.length())
+				&& inputLine.equals(
 						PLAYER_WON)) {
 		
 			
-			System.out.println("other player won");
+			myCarPhysics.setWinner();
 			
-		}else if ((inputLine.length() > PLAYER_LOST.length())
-				&& inputLine.substring(0, PLAYER_LOST.length()).equals(
-						PLAYER_LOST)) {
-			System.out.println("other player lost");
+		}else if ((inputLine.length() == PLAYER_LOST.length())
+				&& inputLine.equals(PLAYER_LOST)) {
+			theirCarPhysics.setWinner ();
 		}
 		
 	}

@@ -18,6 +18,7 @@ public class CarPhysics {
 	private float positionYchange = 0;
 	private float positionY = 0;
 	private float velocityY = 0;
+	int winner = -1;
 	//private float accelerationY = 10;
 
 	private boolean finished = false;
@@ -98,10 +99,12 @@ public class CarPhysics {
 		this.positionY += positionYchange;
 		
 		if(this.positionY >= FINISH_COORD){
+			this.setWinner();
 			if(speedChangeListener != null && finished == false){
 				speedChangeListener.finishLineCrossed();
 //				speedChangeListener = null;
 				finished = true;
+				
 			}
 		}
 		this.previousCallTimeStamp = now;
@@ -142,7 +145,14 @@ public class CarPhysics {
 		this.velocityY = speed;
 		
 	}
-	
+	public void setWinner() {
+		winner = 1;
+		
+	}
+	public boolean isWinner(){
+		if(winner==1) return true;
+		return false;
+	}
 	
 
 }

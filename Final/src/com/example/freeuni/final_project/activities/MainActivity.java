@@ -3,6 +3,7 @@ package com.example.freeuni.final_project.activities;
 import java.util.Date;
 import java.util.Timer;
 
+import javax.print.attribute.standard.MediaSize.Other;
 import javax.xml.soap.Text;
 
 import com.example.freeuni.final_project.App;
@@ -266,12 +267,22 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 							moveCar();
 						}
 					});
-				if(!myCarPhysics.isMoving()){//&&!theirCarPhysics.isMoving()){
+					if(!myCarPhysics.isMoving()){//&&!theirCarPhysics.isMoving()){
 						firstClick = true;
 						myCarPhysics.setLastClickTimeZero();
 						//break;
 					}
+					
+					if(myCarPhysics.isWinner()){
+						finishGame("Congratulations! You won! :)");
+						break;
+					}else if (theirCarPhysics.isWinner()){
+						finishGame("Sorry, you lost :(");
+						break;
+					}
 				}
+				
+				
 			}
 		}).start();
 	}
@@ -324,33 +335,45 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 		
 	}
 
+	public void finishGame(final String toast){
+		handler.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+				
+			}
+		});
+		
+		new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	//				startActivity(new Intent(getBaseContext(), StartGameActivity.class));
+					RestartGameDialog dialog = new RestartGameDialog();
+					
+					dialog.listener = (RestartGameListener)MainActivity.this;
+					dialog.setCancelable(false);
+					dialog.show(getFragmentManager(), "");
+	
+				}
+			}).start();
+	}
 	@Override
 	public void finishLineCrossed() {
-		Toast.makeText(getApplicationContext(), "Congratulations! You won! :)", Toast.LENGTH_LONG).show();
-//		
+		
+		myCarPhysics.setWinner();
 		if(listener!=null) listener.finishedPlaying(App.PLAYER_WON);
 		leftClick = false;
 		rightClick = false;
 		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//				startActivity(new Intent(getBaseContext(), StartGameActivity.class));
-				RestartGameDialog dialog = new RestartGameDialog();
-				
-				dialog.listener = (RestartGameListener)MainActivity.this;
-				dialog.setCancelable(false);
-				dialog.show(getFragmentManager(), "");
-
-			}
-		}).start();
+	
 		
 		
 	}
