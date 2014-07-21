@@ -130,16 +130,7 @@ public class MainActivity extends Activity implements SpeedChangeListener, Resta
 	        initLine();
 	        initPanel();
 	        
-	        Button chooseYourCar = new Button(this);
-	        chooseYourCar.setText("choose your car");
-	        chooseYourCar.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View arg0) {
-					startActivity(new Intent(getBaseContext(), ChooseYourCarActivity.class));
-				}
-			});
-	        layout.addView(chooseYourCar);
+	       
 	        
 	        mySpeed = (TextView)findViewById(R.id.speedometer);
 	        mySpeed.setBackgroundColor(Color.argb(100, 255, 255, 255));

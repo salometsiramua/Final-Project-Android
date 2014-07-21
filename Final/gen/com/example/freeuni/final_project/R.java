@@ -33,29 +33,31 @@ public final class R {
         public static final int yellow_car=0x7f020009;
     }
     public static final class id {
-        public static final int action_settings=0x7f080016;
+        public static final int action_settings=0x7f080018;
+        public static final int choose_car=0x7f080012;
+        public static final int firstPage=0x7f08000f;
         public static final int imageView1=0x7f08000a;
         public static final int imageView2=0x7f08000b;
         public static final int imageView3=0x7f08000c;
         public static final int imageView4=0x7f08000d;
         public static final int imageView5=0x7f08000e;
-        public static final int join_friend=0x7f080013;
+        public static final int join_friend=0x7f080015;
         public static final int leftLine=0x7f080001;
         public static final int left_wheel=0x7f080008;
         public static final int line=0x7f080006;
         public static final int my_car=0x7f080004;
-        public static final int one_player=0x7f08000f;
+        public static final int one_player=0x7f080010;
         public static final int rightLine=0x7f080003;
         public static final int right_wheel=0x7f080009;
         public static final int road=0x7f080000;
         public static final int speedometer=0x7f080002;
-        public static final int startLayout=0x7f080011;
-        public static final int start_new_game=0x7f080012;
+        public static final int startLayout=0x7f080013;
+        public static final int start_new_game=0x7f080014;
         public static final int steering_wheel=0x7f080007;
-        public static final int submit=0x7f080015;
+        public static final int submit=0x7f080017;
         public static final int their_car=0x7f080005;
-        public static final int two_players=0x7f080010;
-        public static final int write_friends_id=0x7f080014;
+        public static final int two_players=0x7f080011;
+        public static final int write_friends_id=0x7f080016;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

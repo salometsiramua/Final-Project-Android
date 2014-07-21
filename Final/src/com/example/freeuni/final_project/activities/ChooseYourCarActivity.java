@@ -46,10 +46,11 @@ public class ChooseYourCarActivity extends Activity{
 				public void onClick(View v) {
 					System.out.println("daechira");
 					v.setBackgroundColor(color.holo_blue_bright);
-					chosenCar = carIds.get(hm.get((ImageView)v));
+					chosenCar = hm.get((ImageView)v);
 					app.setMyCarImageId(chosenCar);
 					android.os.Process.killProcess(android.os.Process.myPid());
 		            System.exit(1);
+		            finish();
 				}
 			});
 		}
@@ -63,7 +64,7 @@ public class ChooseYourCarActivity extends Activity{
 		carIds.add(R.id.imageView4);
 		carIds.add(R.id.imageView5);
 		hm = new HashMap<>();
-		for(int i = 0; i < cars.size(); i++){
+		for(int i = 0; i < carIds.size(); i++){
 			ImageView img = (ImageView)findViewById(carIds.get(i));
 			cars.add(img);
 			hm.put(img, carIds.get(i));
